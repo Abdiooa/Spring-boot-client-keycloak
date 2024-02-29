@@ -15,7 +15,16 @@ public class IndexController {
     }
     @GetMapping(path = "/unauthenticated")
     public String non(){
-        return "hello every body non authentifier";
+        return "this is an unauthenticated endpoint";
+    }
+    @GetMapping(path = "/")
+    public HashMap indexe() {
+        // get a successful user login
+        OAuth2User user = ((OAuth2User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return new HashMap(){{
+            put("hello", user.getAttribute("name"));
+            put("your email is", user.getAttribute("email"));
+        }};
     }
     @GetMapping(path = "/autre")
     public String autre(){
